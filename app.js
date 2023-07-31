@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-const port = process.env.PORT||8005;
+const port = process.env.PORT||8007;
 
 
 const cors = require("cors");
@@ -134,7 +134,8 @@ app.post("/signin", async (req, res) => {
 
       res.cookie("Amazonweb", token, {
         expires: new Date(Date.now() + 5999999999),
-        httpOnly: true
+        httpOnly: true,
+        domain:'https://64a6d89698f755401a98ccd4--playful-treacle-885689.netlify.app/',
       }).json({
         status:"Ok",
       })
@@ -196,12 +197,13 @@ app.get("/cartdetails", authenticate,async (req,res) => {
 })
 
 app.get("/validuser", authenticate,async (req,res) => {
+  console.log("entered in valid router")
   try{
       const validuser = await USER.findOne({_id: req.userID});
       console.log("validuser->"+validuser);
       res.status(201).json(validuser);
   }catch(error){
-  console.log(error);
+  console.log(error +"in validuser");
   }  
 })    
 

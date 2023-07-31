@@ -7,13 +7,13 @@ const authenticate = async (req, res, next) => {
     try {
       //  console.log("before");
         const token = req.cookies.Amazonweb;
-      //  console.log("tokenbeforeadfe "+token+" SERCRET KEY "+secretKey);
+       // console.log("tokenbeforeadfe "+token+" SERCRET KEY "+secretKey);
         const verifyToken = jwt.verify(token, secretKey);
-     //   console.log("fghjkl");
-      //  console.log("verifytoken "+verifyToken);
+       // console.log("fghjkl");
+      // console.log("verifytoken "+verifyToken);
 
         const rootUser = await USER.findOne({ _id:verifyToken._id, "tokens.token":token});
-      //  console.log("rootuser "+rootUser);
+        //console.log("rootuser "+rootUser);
 
         if (!rootUser) { throw new Error("user not found") };
 
@@ -22,10 +22,10 @@ const authenticate = async (req, res, next) => {
         req.userID = rootUser._id;
 
         next();
-
+  
     } catch (error) {
        
-        res.status(401).send({ error: "Unothorised: No token provide" })
+        res.status(401).send({ error: "Unothorised1: No token provide" })
         console.log(error);
     }
 }
